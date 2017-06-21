@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+
+   <extension
+         point="org.eclipse.ui.commands">
+      <category
+            name="rapMainCategory"
+            id="rap-plugin.commands.category">
+      </category>
+      <command
+            name="rapMainCommand"
+            categoryId="rap-plugin.commands.category"
+            id="rap-plugin.commands.rapMainCommand">
+      </command>
+   </extension>
+   <extension
+         point="org.eclipse.ui.handlers">
+      <handler
+            commandId="rap-plugin.commands.rapMainCommand"
+            class="com.idohoo.eclipse.plugin.rap.handlers.RapMainHandler">
+      </handler>
+   </extension>
+   <extension
+         point="org.eclipse.ui.bindings">
+      <key
+            commandId="rap-plugin.commands.rapMainCommand"
+            contextId="org.eclipse.ui.contexts.window"
+            sequence="ALT+CTRL+R"
+            schemeId="org.eclipse.ui.defaultAcceleratorConfiguration">
+      </key>
+   </extension>
+   <extension
+         point="org.eclipse.ui.menus">
+      <menuContribution
+            locationURI="toolbar:org.eclipse.ui.main.toolbar?after=additions">
+         <toolbar
+               id="rap-plugin.toolbars.rapMainToolbar">
+            <command
+                  commandId="rap-plugin.commands.rapMainCommand"
+                  icon="icons/sample.gif"
+                  tooltip="RapPluginRun"
+                  id="rap-plugin.toolbars.rapMainCommand">
+            </command>
+         </toolbar>
+      </menuContribution>
+   </extension>
+   <extension
+         point="org.eclipse.ui.preferencePages">
+      <page
+            class="com.idohoo.eclipse.plugin.rap.preferences.RapPluginPreferencePage"
+            id="com.idohoo.eclipse.plugin.rap.preferences.RapPluginPreferencePage"
+            name="RapPlugin">
+      </page>
+   </extension>
+   <extension
+         point="org.eclipse.core.runtime.preferences">
+      <initializer
+            class="com.idohoo.eclipse.plugin.rap.preferences.PreferenceInitializer">
+      </initializer>
+   </extension>
+
+</plugin>

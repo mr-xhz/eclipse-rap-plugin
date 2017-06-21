@@ -164,6 +164,7 @@ public class EditView extends BaseView{
 			case "int":case "Integer":
 			case "float":case "Float":
 			case "double":case "Double":
+			case "long":case "Long":
 			case "BigDecimal":case "BigInteger":
 			case "Date":
 				type = "number";
@@ -209,7 +210,7 @@ public class EditView extends BaseView{
 		result.setPageId(pageId);
 		result.setDescription(classMethodVO.getDescription());
 		result.setId(getRandomId());
-		result.setName(StringUtil.isEmpty(classMethodVO.getNickname())?classMethodVO.getName():classMethodVO.getNickname());
+		result.setName(StringUtil.isEmpty(classMethodVO.getNickname())?(StringUtil.isEmpty(classMethodVO.getDescription())?classMethodVO.getName():classMethodVO.getDescription()):classMethodVO.getNickname());
 		result.setResponseTemplate("");
 		String url = classMethodVO.getUrl();
 		if(StringUtil.isNotEmpty(classVO.getUrl())){

@@ -26,7 +26,9 @@ public class ClassUtil {
 	 * @return
 	 */
 	private static ClassVO getClassVO(String type){
-		ClassVO classVO = mapClassVO.get(type);
+		//ClassVO classVO = mapClassVO.get(type);
+		//先把缓存去掉
+		ClassVO classVO = null;
 		if(classVO == null){
 			classVO = initVO(type);
 			mapClassVO.put(type, classVO);
@@ -274,7 +276,6 @@ public class ClassUtil {
 	 * @return
 	 */
 	private static void setFields(ClassVO vo,String javaString){
-		
 		List<ClassFieldVO> fields = new ArrayList<ClassFieldVO>();
 		if(StringUtil.isNotEmpty(vo.getParentClass())){
 			ClassVO parentVO = getClassVO(vo.getParentClass());
@@ -288,7 +289,7 @@ public class ClassUtil {
 			return;
 		}
 		String classBody = matcher.group(1);
-		matcher = Pattern.compile("(private|protected|public)\\s+?([a-z_][a-z0-9_\\.]*?)\\s+?([a-z_][a-z0-9_]*?)(\\s.*;$|=.*;$|;$)",Pattern.CASE_INSENSITIVE | Pattern.MULTILINE).matcher(classBody);
+		matcher = Pattern.compile("(private|protected|public)\\s+?([a-z_][a-z0-9_<>]*?)\\s+?([a-z_][a-z0-9_]*?)(\\s.*;$|=.*;$|;$)",Pattern.CASE_INSENSITIVE | Pattern.MULTILINE).matcher(classBody);
 		while(matcher.find()){
 			String type = matcher.group(2);
 			if(type.equals("static") || type.equals("final")){

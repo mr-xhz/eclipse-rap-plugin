@@ -10,8 +10,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import javax.xml.transform.Source;
-
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -226,7 +224,7 @@ public class JsonUtil {
 		}else if(value instanceof Date){
 			return ((Date)value).getTime()+"";
 		}else if(value instanceof String){
-			return "\""+value.toString()+"\"";
+			return "\""+value.toString().replaceAll("\"", "\\\\\"").replaceAll("\\b", "").replaceAll("\\t", "\\\\t").replaceAll("\\r", "\\\\r").replaceAll("\\n", "\\\\n").replaceAll("\\x08", "\\\\b").replaceAll("\\\\'", "'")+"\"";
 		}else if(value instanceof List){
 			return stringifyList((List)value);
 		}else if(isJDKType(value.getClass().getSimpleName())){

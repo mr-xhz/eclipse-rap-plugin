@@ -113,7 +113,7 @@ public class RapHttpClient {
 		return JsonUtil.parseToObject(object, RapProjectDataVO.class);
 	}
 	
-	public void checkIn(int projectId,String projectData) throws RapException{
+	public String checkIn(int projectId,String projectData) throws RapException{
 		checkAndLogin();
 		Map<String,String> params = new HashMap<String,String>();
 		params.put("id", projectId+"");
@@ -121,7 +121,7 @@ public class RapHttpClient {
 		params.put("deletedObjectListData", "[]");
 		params.put("versionPosition", "4");
 		params.put("description", "rap-plugin save");
-		doPost(RapHttpConstant.CHECK_IN_URL,params);
+		return doPost(RapHttpConstant.CHECK_IN_URL,params);
 	}
 	
 	private String doPost(String url,Map<String,String> params) throws RapException{

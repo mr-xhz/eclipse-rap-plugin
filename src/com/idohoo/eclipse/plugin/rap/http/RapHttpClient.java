@@ -58,7 +58,7 @@ public class RapHttpClient {
 		return instance;
 				
 	}
-
+	
 	public String getCookie() {
 		if(this.cookieTime != null && this.cookieTime < new Date().getTime()){
 			return "";

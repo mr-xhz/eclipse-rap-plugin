@@ -122,6 +122,7 @@ public class JsonUtil {
 		return parseToObject(jsonObject,clazz);
 	}
 	
+	@SuppressWarnings("unchecked")
 	public static <T> T parseToObject(JSONObject jsonObject,Class<T> clazz){
 		if(jsonObject == null){
 			return null;
@@ -143,7 +144,7 @@ public class JsonUtil {
 				}else if(object instanceof JSONArray){
 					if(field.getGenericType() instanceof ParameterizedType){
 						ParameterizedType parameterizedType = (ParameterizedType)field.getGenericType();
-						field.set(result, parseToList((JSONArray)object,Class.forName(parameterizedType.getActualTypeArguments()[0].getTypeName())));
+						field.set(result, parseToList((JSONArray)object,(Class)parameterizedType.getActualTypeArguments()[0]));
 					}else{
 						field.set(result, formatValue(object,field.getType()));
 					}

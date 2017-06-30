@@ -181,7 +181,7 @@ public class ProjectsView extends BaseView {
 		default:
 			break;
 		}
-		this.status.getParent().requestLayout();
+		this.status.getParent().layout();
 	} 
 	
 	private int getProjectId(){

@@ -46,8 +46,13 @@ public class RapHttpClient {
 	}
 	
 	public static RapHttpClient getInstance(){
+		RapPreferenceVO rapPreferenceVO = PreferenceUtil.getVO(Activator.getDefault(), RapPreferenceVO.class);
 		if(instance == null){
-			RapPreferenceVO rapPreferenceVO = PreferenceUtil.getVO(Activator.getDefault(), RapPreferenceVO.class);
+			instance = new RapHttpClient(rapPreferenceVO.getUrl(),rapPreferenceVO.getUsername(),rapPreferenceVO.getPassword());
+		}else if(!instance.domain.equals(rapPreferenceVO.getUrl())
+				|| !instance.username.equals(rapPreferenceVO.getUsername())
+				|| !instance.password.equals(rapPreferenceVO.getPassword())
+				){
 			instance = new RapHttpClient(rapPreferenceVO.getUrl(),rapPreferenceVO.getUsername(),rapPreferenceVO.getPassword());
 		}
 		return instance;

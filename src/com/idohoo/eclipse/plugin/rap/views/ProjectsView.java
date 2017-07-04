@@ -15,7 +15,9 @@ import org.eclipse.swt.widgets.Shell;
 
 import com.idohoo.eclipse.plugin.rap.exception.RapException;
 import com.idohoo.eclipse.plugin.rap.http.RapHttpClient;
+import com.idohoo.eclipse.plugin.rap.util.ClassUtil;
 import com.idohoo.eclipse.plugin.rap.util.StringUtil;
+import com.idohoo.eclipse.plugin.rap.vo.ClassVO;
 import com.idohoo.eclipse.plugin.rap.vo.rap.RapModuleVO;
 import com.idohoo.eclipse.plugin.rap.vo.rap.RapPageVO;
 import com.idohoo.eclipse.plugin.rap.vo.rap.RapProjectVO;

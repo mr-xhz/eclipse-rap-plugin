@@ -26,9 +26,7 @@ public class ClassUtil {
 	 * @return
 	 */
 	private static ClassVO getClassVO(String type){
-		//ClassVO classVO = mapClassVO.get(type);
-		//先把缓存去掉
-		ClassVO classVO = null;
+		ClassVO classVO = mapClassVO.get(type);
 		if(classVO == null){
 			classVO = initVO(type);
 			mapClassVO.put(type, classVO);
@@ -203,7 +201,7 @@ public class ClassUtil {
 				classMethodVO.setAuthor(m.group(1));
 			}
 			
-			m = Pattern.compile("@(.*)?\\((.*?)\\)$",Pattern.CASE_INSENSITIVE | Pattern.MULTILINE).matcher(matcher.group(2));
+			m = Pattern.compile("@(.*)?\\((.*?)\\)\\s*$",Pattern.CASE_INSENSITIVE | Pattern.MULTILINE).matcher(matcher.group(2));
 			while(m.find()){
 				if(m.group(1).equals("Path") || m.group(1).equals("RequestMapping")){
 					Matcher paramsMatcher = Pattern.compile("\\{.*?\\}").matcher(m.group(2));
@@ -263,6 +261,12 @@ public class ClassUtil {
 				classFieldVO.setName(name);
 				type = formatType(vo.getClassPackage(),vo.getClassImport(),type);
 				classFieldVO.setJavaType(type);
+				
+				//获取注释
+				m = Pattern.compile("@param\\s+?"+name+"\\s+([^\\s]+?)\\s*$",Pattern.CASE_INSENSITIVE | Pattern.MULTILINE).matcher(matcher.group(1));
+				if(m.find()){
+					classFieldVO.setComment(m.group(1));
+				}
 				classMethodVO.getParams().add(classFieldVO);
 			}
 			vo.getMethods().add(classMethodVO);
@@ -352,6 +356,9 @@ public class ClassUtil {
 		setClass(classVO,javaString);
 		//fields
 		setFields(classVO,javaString);
+		
+		//清除所有的缓存
+		mapClassVO.clear();
 		return classVO;
 	}
 	/**
@@ -393,6 +400,9 @@ public class ClassUtil {
 		setMethods(result,javaString);
 		//fields
 		initFields(result);
+		
+		//清除所有的缓存
+		mapClassVO.clear();
 		return result;
 	}
 }

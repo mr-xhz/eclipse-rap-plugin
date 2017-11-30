@@ -70,7 +70,7 @@ public class ClassUtil {
 		if(imports.get(type) != null){
 			return imports.get(type);
 		}
-		return basePackage.replaceAll(";$", "")+"."+type;
+		return basePackage.replaceAll(";\\s*$", "")+"."+type;
 	}
 
 	/**
@@ -301,7 +301,7 @@ public class ClassUtil {
 			return;
 		}
 		String classBody = matcher.group(1);
-		matcher = Pattern.compile("(private|protected|public)\\s+?([a-z_][a-z0-9_<>]*?)\\s+?([a-z_][a-z0-9_]*?)(\\s.*;$|=.*;$|;$)",Pattern.CASE_INSENSITIVE | Pattern.MULTILINE).matcher(classBody);
+		matcher = Pattern.compile("(private|protected|public)\\s+?([a-z_][a-z0-9_<>]*?)\\s+?([a-z_][a-z0-9_]*?)(\\s.*;\\s*$|=.*;\\s*$|;\\s*$)",Pattern.CASE_INSENSITIVE | Pattern.MULTILINE).matcher(classBody);
 		while(matcher.find()){
 			String type = matcher.group(2);
 			if(type.equals("static") || type.equals("final")){
@@ -336,7 +336,7 @@ public class ClassUtil {
 		}
 		
 		//拿注释
-		matcher = Pattern.compile("/\\*\\*([\\s\\S]*?)\\*/[\\s\\S]*?(private|protected|public)\\s+?(\\w.*?)\\s+?([a-z_][a-z0-9_]*?)(=.*|\\s.*)?;$",Pattern.CASE_INSENSITIVE | Pattern.MULTILINE).matcher(classBody);
+		matcher = Pattern.compile("/\\*\\*([\\s\\S]*?)\\*/[\\s\\S]*?(private|protected|public)\\s+?(\\w.*?)\\s+?([a-z_][a-z0-9_]*?)(=.*|\\s.*)?;\\s*$",Pattern.CASE_INSENSITIVE | Pattern.MULTILINE).matcher(classBody);
 		while(matcher.find()){
 			if(matcher.group(3).equals("static") || matcher.group(3).equals("final")){
 				continue;
@@ -375,13 +375,16 @@ public class ClassUtil {
 	 */
 	private static void initFields(ClassVO vo){
 		for(ClassMethodVO classMethodVO : vo.getMethods()){
-			if(classMethodVO.getResult().getJavaType().indexOf(".")== -1) continue;
-			ClassVO classVO = getClassVO(classMethodVO.getResult().getJavaType());
-			if(classVO != null){
-				classMethodVO.getResult().setFields(classVO.getFields());
+			
+			if(classMethodVO.getResult().getJavaType().indexOf(".") != -1){
+				ClassVO classVO = getClassVO(classMethodVO.getResult().getJavaType());
+				if(classVO != null){
+					classMethodVO.getResult().setFields(classVO.getFields());
+				}
 			}
+			
 			for(ClassFieldVO classFieldVO : classMethodVO.getParams()){
-				classVO = getClassVO(classFieldVO.getJavaType());
+				ClassVO classVO = getClassVO(classFieldVO.getJavaType());
 				if(classVO != null){
 					classFieldVO.setFields(classVO.getFields());
 				}

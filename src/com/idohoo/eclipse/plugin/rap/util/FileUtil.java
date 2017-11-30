@@ -17,9 +17,9 @@ public class FileUtil {
 
 	public static String findInWorkspace(String className){
 		for(IProject project : ResourcesPlugin.getWorkspace().getRoot().getProjects()){
-			IResource resource = project.findMember(("src/"+className.replace(".", "/")+".java").replaceAll("/", File.separator));
+			IResource resource = project.findMember(("src/"+className.replace(".", "/")+".java"));
 			if(resource == null){
-				resource = project.findMember(("src/main/java/"+className.replace(".", "/")+".java").replaceAll("/", File.separator));
+				resource = project.findMember(("src/main/java/"+className.replace(".", "/")+".java"));
 			}
 			if(resource == null){
 				continue;

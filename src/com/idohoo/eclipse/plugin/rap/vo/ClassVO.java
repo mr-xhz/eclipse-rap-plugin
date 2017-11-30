@@ -33,9 +33,19 @@ public class ClassVO {
 	private String className;
 	
 	/**
+	 * 包含名
+	 */
+	public String fullClassName;
+	
+	/**
 	 * 父类
 	 */
 	private String parentClass;
+	
+	/**
+	 * 接口
+	 */
+	private String parentInterface;
 
 	/**
 	 * 地址前缀
@@ -122,6 +132,22 @@ public class ClassVO {
 
 	public void setFields(List<ClassFieldVO> fields) {
 		this.fields = fields;
+	}
+
+	public String getParentInterface() {
+		return parentInterface;
+	}
+
+	public void setParentInterface(String parentInterface) {
+		this.parentInterface = parentInterface;
+	}
+
+	public String getFullClassName() {
+		return fullClassName;
+	}
+
+	public void setFullClassName(String fullClassName) {
+		this.fullClassName = fullClassName;
 	}
 	
 	

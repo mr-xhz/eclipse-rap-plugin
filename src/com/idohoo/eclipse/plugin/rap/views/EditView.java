@@ -215,6 +215,12 @@ public class EditView extends BaseView{
 		String url = classMethodVO.getUrl();
 		if(StringUtil.isNotEmpty(classVO.getUrl())){
 			url = classVO.getUrl() + url;
+		}else if(StringUtil.isNotEmpty(classVO.getParentInterface())){
+			url = classVO.getParentInterface();
+			url+="."+classMethodVO.getName();
+		}else if(StringUtil.isNotEmpty(classVO.getFullClassName())){
+			url = classVO.getFullClassName();
+			url+="."+classMethodVO.getName();
 		}
 		result.setRequestUrl(url);
 		result.setRequestType(getType(classMethodVO.getMethod()));

@@ -115,6 +115,7 @@ public class ClassUtil {
 		Matcher matcher = pattern.matcher(javaString);
 		if(matcher.find()){
 			vo.setClassName(matcher.group(1));
+			vo.setFullClassName(formatType(vo.getClassPackage(),vo.getClassImport(),matcher.group(1)));
 		}
 		
 		//获取父类
@@ -122,6 +123,13 @@ public class ClassUtil {
 		matcher = pattern.matcher(javaString);
 		if(matcher.find()){
 			vo.setParentClass(formatType(vo.getClassPackage(),vo.getClassImport(),matcher.group(1)));
+		}
+		
+		//获取接口
+		pattern = Pattern.compile("^public\\s+class.+?implements\\s+?(\\w.*?)(\\s|\\{$|$)",Pattern.CASE_INSENSITIVE | Pattern.MULTILINE);
+		matcher = pattern.matcher(javaString);
+		if(matcher.find()){
+			vo.setParentInterface(formatType(vo.getClassPackage(),vo.getClassImport(),matcher.group(1)));
 		}
 		
 		//获取注释中的author

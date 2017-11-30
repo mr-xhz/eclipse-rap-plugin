@@ -2,7 +2,8 @@ package com.idohoo.eclipse.plugin.rap.util;
 
 import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileReader;
+import java.io.FileInputStream;
+import java.io.InputStreamReader;
 
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
@@ -25,7 +26,8 @@ public class FileUtil {
 				continue;
 			}
 			try {
-				BufferedReader bufferReader = new BufferedReader(new FileReader(project.getLocationURI().getPath()+File.separator+resource.getProjectRelativePath().toString()));
+				//BufferedReader bufferReader = new BufferedReader(new FileReader(project.getLocationURI().getPath()+File.separator+resource.getProjectRelativePath().toString()));
+				BufferedReader bufferReader = new BufferedReader(new InputStreamReader(new FileInputStream(project.getLocationURI().getPath()+File.separator+resource.getProjectRelativePath().toString()),"UTF-8"));
 				StringBuilder result = new StringBuilder();
 				String s = null;
 				while((s = bufferReader.readLine())!=null){

@@ -1,13 +1,12 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
-Bundle-Name: Rap-plugin
-Bundle-SymbolicName: rap-plugin;singleton:=true
+Bundle-Name: Eclipse-rap-plugin
+Bundle-SymbolicName: eclipse-rap-plugin;singleton:=true
 Bundle-Version: 1.0.0.qualifier
+Bundle-Activator: com.idohoo.eclipse.plugin.rap.main.Activator
 Require-Bundle: org.eclipse.ui,
  org.eclipse.core.runtime
-Bundle-RequiredExecutionEnvironment: JavaSE-1.7
-Bundle-Activator: com.idohoo.eclipse.plugin.rap.main.Activator
-Bundle-ActivationPolicy: lazy
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Import-Package: org.apache.commons.httpclient;version="3.1.0",
  org.apache.commons.httpclient.methods;version="3.1.0",
  org.eclipse.core.resources,
@@ -18,3 +17,4 @@ Import-Package: org.apache.commons.httpclient;version="3.1.0",
  org.eclipse.wst.xml.ui.internal.tabletree,
  org.json.simple,
  org.json.simple.parser
+Bundle-ActivationPolicy: lazy

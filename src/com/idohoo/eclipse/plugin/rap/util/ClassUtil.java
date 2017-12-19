@@ -64,10 +64,10 @@ public class ClassUtil {
 	 * @return
 	 */
 	public static String formatType(String basePackage,Map<String,String> imports,String type){
-		if(type.indexOf(".") != -1 || isJDKType(type)){
+		if(type.indexOf(".") != -1 || isJDKType(type) || !type.matches("^[a-zA-Z_0-9\\.]+$")){
 			return type;
 		}
-		if(imports.get(type) != null){
+		if(imports != null && imports.get(type) != null){
 			return imports.get(type);
 		}
 		return basePackage.replaceAll(";\\s*$", "")+"."+type;
@@ -273,7 +273,13 @@ public class ClassUtil {
 				//获取注释
 				m = Pattern.compile("@param\\s+?"+name+"\\s+([^\\s]+?)\\s*$",Pattern.CASE_INSENSITIVE | Pattern.MULTILINE).matcher(matcher.group(1));
 				if(m.find()){
-					classFieldVO.setComment(m.group(1));
+					String comment = m.group(1);
+					type = formatType(vo.getClassPackage(),vo.getClassImport(),comment);
+					if(type.indexOf(".") == -1 && type.equals(comment)){
+						classFieldVO.setComment(comment);
+					}else{
+						classFieldVO.setJavaType(type);
+					}
 				}
 				classMethodVO.getParams().add(classFieldVO);
 			}
